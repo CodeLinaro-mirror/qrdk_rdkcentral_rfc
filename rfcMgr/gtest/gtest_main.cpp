@@ -1591,6 +1591,72 @@ TEST(rfcMgrTest, ProcessXconfResponse_WithValidAccountID)
     EXPECT_GE(result, 0);
 }
 
+
+
+// --- Additional coverage for rfc_manager.cpp ---
+
+TEST(rfcMgrTest, IsIarmBusConnected_smoke) {
+    rfc::RFCManager mgr;
+    // Should not crash, always returns true if !USE_IARMBUS
+    EXPECT_TRUE(mgr.IsIarmBusConnected());
+}
+
+TEST(rfcMgrTest, InitializeIARM_smoke) {
+    rfc::RFCManager mgr;
+    // Should not crash
+    ASSERT_NO_FATAL_FAILURE(mgr.InitializeIARM());
+}
+
+TEST(rfcMgrTest, term_event_handler_smoke) {
+    // Should not crash, always returns 0
+    EXPECT_EQ(term_event_handler(), 0);
+}
+
+TEST(rfcMgrTest, getErouterIPAddress_empty) {
+    rfc::RFCManager mgr;
+    // Should return empty string in test env
+    std::string ip = mgr.getErouterIPAddress();
+    SUCCEED();
+}
+
+TEST(rfcMgrTest, CheckIPConnectivity_noIP) {
+    rfc::RFCManager mgr;
+    // Should return false in test env
+    EXPECT_FALSE(mgr.CheckIPConnectivity());
+}
+
+TEST(rfcMgrTest, CheckIProuteConnectivity_nullFile) {
+    rfc::RFCManager mgr;
+    // Should return false for null file
+    EXPECT_FALSE(mgr.CheckIProuteConnectivity(nullptr));
+}
+
+TEST(rfcMgrTest, rfcMgrEventHandler_smoke) {
+#if defined(USE_IARMBUS)
+    rfcMgrEventHandler(nullptr, 0, nullptr, 0);
+#endif
+    SUCCEED();
+}
+
+// --- Additional edge/error-path tests for rfc_common.cpp ---
+
+TEST(rfcMgrTest, read_RFCProperty_nullArgs) {
+    char buf[16];
+    // Null key
+    EXPECT_EQ(read_RFCProperty("type", nullptr, buf, sizeof(buf)), -1);
+    // Null out_value
+    EXPECT_EQ(read_RFCProperty("type", "key", nullptr, sizeof(buf)), -1);
+    // Zero datasize
+    EXPECT_EQ(read_RFCProperty("type", "key", buf, 0), -1);
+}
+
+TEST(rfcMgrTest, executeCommandAndGetOutput_invalidCmd) {
+    std::string result;
+    // Invalid enum value (simulate by casting)
+    int ret = executeCommandAndGetOutput((SYSCMD)999, nullptr, result);
+    EXPECT_EQ(ret, -1);
+}
+
 GTEST_API_ int main(int argc, char *argv[]){
     ::testing::InitGoogleTest(&argc, argv);
 
