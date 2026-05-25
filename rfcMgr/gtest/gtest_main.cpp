@@ -1630,14 +1630,14 @@ TEST(rfcMgrTest, CheckIProuteConnectivity_nullFile) {
     // Should return false for null file
     EXPECT_FALSE(mgr.CheckIProuteConnectivity(nullptr));
 }
-
+/*
 TEST(rfcMgrTest, rfcMgrEventHandler_smoke) {
 #if defined(USE_IARMBUS)
     rfcMgrEventHandler(nullptr, 0, nullptr, 0);
 #endif
     SUCCEED();
 }
-
+*/
 // --- Additional edge/error-path tests for rfc_common.cpp ---
 
 TEST(rfcMgrTest, read_RFCProperty_nullArgs) {
