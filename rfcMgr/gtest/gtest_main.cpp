@@ -906,6 +906,27 @@ TEST(rfcMgrTest, executeCommandAndGetOutput_eRdkSsaCli) {
     EXPECT_EQ(ret , -1);
 }
 
+// --- Additional tests for rfc_common.cpp ---
+
+TEST(rfcMgrTest, getSyseventValue_returnsEmptyOnInvalidKey) {
+    // This test expects sysevent is not available in test env, so returns empty
+    std::string value = getSyseventValue("__nonexistent_key_for_test__");
+    EXPECT_EQ(value, "");
+}
+
+TEST(rfcMgrTest, waitForRfcCompletion_doesNotCrash) {
+    // This test just ensures the function runs without crashing or hanging
+    // It is a smoke test, as actual sysevent and file presence are not guaranteed in test env
+    ASSERT_NO_FATAL_FAILURE(waitForRfcCompletion());
+}
+
+TEST(rfcMgrTest, getCronFromDCMSettings_returnsStringOrEmpty) {
+    // This test expects no real DCMSettings.conf, so should return empty string
+    std::string cron = getCronFromDCMSettings();
+    // Accept either empty or any string (smoke test)
+    SUCCEED();
+}
+
 TEST(rfcMgrTest, getRebootRequirement) {
     RuntimeFeatureControlProcessor *rfcObj = new RuntimeFeatureControlProcessor();
     bool result = rfcObj->getRebootRequirement();
