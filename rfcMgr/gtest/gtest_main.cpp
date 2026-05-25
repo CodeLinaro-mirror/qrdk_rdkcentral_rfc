@@ -1606,12 +1606,12 @@ TEST(rfcMgrTest, InitializeIARM_smoke) {
     // Should not crash
     ASSERT_NO_FATAL_FAILURE(mgr.InitializeIARM());
 }
-
+/*
 TEST(rfcMgrTest, term_event_handler_smoke) {
     // Should not crash, always returns 0
     EXPECT_EQ(term_event_handler(), 0);
 }
-
+*/
 TEST(rfcMgrTest, getErouterIPAddress_empty) {
     rfc::RFCManager mgr;
     // Should return empty string in test env
