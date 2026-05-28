@@ -10,8 +10,28 @@ This document analyzes the L2 (integration/functional) test coverage for the RFC
 
 ---
 
-## 1. Current L2 Test Coverage
+**Test Coverage Summary**
+Total source functions (approx):          ~120
+Functions with direct L2 coverage:          ~30
+Functions with indirect L2 coverage:        ~15
+Functions with no L2 coverage:              ~75
 
+Active L2 test functions:                    33
+Disabled L2 test functions:                   2
+Active feature scenarios:                    35
+Proposed new test scenarios:                 48
+  - High priority:                           22
+  - Medium priority:                         16
+  - Low priority:                            10
+
+Test files active:                           17
+Test files disabled (commented out):          2
+
+Estimated current L2 functional coverage:  ~35%
+Target L2 functional coverage:             ~80%
+
+
+## 1.Current L2 Test Coverage
 ### 1.1 Test Inventory
 
 | # | Feature File | Test File | Scenarios | Status in `run_l2.sh` |
@@ -948,34 +968,6 @@ test/test-artifacts/mockxconf/
 | Factory reset extra function | `test_rfc_factory_reset.py` | Has 4 test functions but feature has 3 scenarios — `test_rfc_partnername_value` has no explicit scenario |
 
 > **Note:** Several issues from the original analysis (duplicate feature files, wrong file extension, feature/test title mismatches, wrong account IDs, missing preconditions) were already corrected — see Section 8 for details.
-
----
-
-## 7. Test Coverage Summary
-
-```
-Total source functions (approx):          ~120
-Functions with direct L2 coverage:          ~30
-Functions with indirect L2 coverage:        ~15
-Functions with no L2 coverage:              ~75
-
-Active L2 test functions:                    33
-Disabled L2 test functions:                   2
-Active feature scenarios:                    35
-Proposed new test scenarios:                 48
-  - High priority:                           22
-  - Medium priority:                         16
-  - Low priority:                            10
-
-Test files active:                           17
-Test files disabled (commented out):          2
-
-Estimated current L2 functional coverage:  ~35%
-Target L2 functional coverage:             ~80%
-```
-
----
-
 ---
 
 ## 8. Feature File Corrections Applied
