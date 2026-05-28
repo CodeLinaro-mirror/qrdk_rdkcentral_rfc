@@ -11,6 +11,7 @@ This document analyzes the L2 (integration/functional) test coverage for the RFC
 ---
 
 **Test Coverage Summary**
+```
 Total source functions (approx):          ~120
 Functions with direct L2 coverage:          ~30
 Functions with indirect L2 coverage:        ~15
@@ -29,7 +30,7 @@ Test files disabled (commented out):          2
 
 Estimated current L2 functional coverage:  ~35%
 Target L2 functional coverage:             ~80%
-
+```
 
 ## 1.Current L2 Test Coverage
 ### 1.1 Test Inventory
