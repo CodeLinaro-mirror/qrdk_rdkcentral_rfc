@@ -3,6 +3,8 @@
 **Test File:** coverage.info  
 **Date:** 2026-05-19 18:32:07  
 
+<img width="1912" height="437" alt="image" src="https://github.com/user-attachments/assets/fcf547d1-c45f-48d5-971d-064e8d5784c8" />
+
 ## Summary
 - **Line Coverage:** 1900 / 2320 (**81.9%**)
 - **Function Coverage:** 124 / 133 (**93.2%**)
