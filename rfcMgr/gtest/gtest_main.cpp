@@ -677,7 +677,7 @@ TEST(rfcMgrTest, CreateXconfHTTPUrl) {
     rfcObj->GetOsClass();
     rfcObj->GetAccountID();
     rfcObj->GetXconfSelect();
-    std:stringstream url = rfcObj->CreateXconfHTTPUrl();
+    std::stringstream url = rfcObj->CreateXconfHTTPUrl();
     EXPECT_EQ(url.str(), "https://mockxconfserver?estbMacAddress=&firmwareVersion=&env=&model=&manufacturer=&controllerId=2504&channelMapId=2345&VodId=15660&partnerId=sky&osClass=TestOs%20Class&accountId=4123705941507160514&Experience=&version=2");  
     delete rfcObj;
 }
