@@ -149,7 +149,7 @@ char xconfResp[] = R"({
                 "enable": true,
                 "effectiveImmediate": true,
                 "configData": {
-                    "tr181.Device.DeviceInfo.X_RDKCENTRAL-COM_RFC.Bootstrap.XconfUrl": "https://xconf.xcal.tv"
+                    "tr181.Device.DeviceInfo.X_RDKCENTRAL-COM_RFC.Bootstrap.XconfUrl": "https://mockxconf"
                 },
                 "featureInstance": "XconfURL"
             }            
@@ -671,14 +671,14 @@ TEST(rfcMgrTest, CreateXconfHTTPUrl) {
     writeToTr181storeFile("Device.DeviceInfo.X_RDKCENTRAL-COM_RFC.Feature.AccountInfo.AccountID", "4123705941507160514", "/opt/secure/RFC/tr181store.ini", Quoted);
     RuntimeFeatureControlProcessor *rfcObj = new RuntimeFeatureControlProcessor();
     rfcObj->_RFCKeyAndValueMap[RFC_PARTNER_ID_KEY_STR] = "sky"; 
-    rfcObj->_RFCKeyAndValueMap[XCONF_URL_KEY_STR] = "https://xconf.xdp.eu-1.xcal.tv";
+    rfcObj->_RFCKeyAndValueMap[XCONF_URL_KEY_STR] = "https://mockxconfserver";
     rfcObj->PreProcessJsonResponse(xconfResp);
     rfcObj->GetValidPartnerId();
     rfcObj->GetOsClass();
     rfcObj->GetAccountID();
     rfcObj->GetXconfSelect();
     std:stringstream url = rfcObj->CreateXconfHTTPUrl();
-    EXPECT_EQ(url.str(), "https://xconf.xdp.eu-1.xcal.tv?estbMacAddress=&firmwareVersion=&env=&model=&manufacturer=&controllerId=2504&channelMapId=2345&VodId=15660&partnerId=sky&osClass=TestOs%20Class&accountId=4123705941507160514&Experience=&version=2");  
+    EXPECT_EQ(url.str(), "https://mockxconfserver?estbMacAddress=&firmwareVersion=&env=&model=&manufacturer=&controllerId=2504&channelMapId=2345&VodId=15660&partnerId=sky&osClass=TestOs%20Class&accountId=4123705941507160514&Experience=&version=2");  
     delete rfcObj;
 }
 
@@ -861,9 +861,9 @@ TEST(rfcMgrTest, InitDownloadData) {
 TEST(rfcMgrTest, set_RFCProperty) {
     RuntimeFeatureControlProcessor *rfcObj = new RuntimeFeatureControlProcessor();
     std::string name = "rfc";
-    std::string value = "https://rdkautotool.ccp.xcal.tv/featureControl/getSettings";
+    std::string value = "https://mockxconf/featureControl/getSettings";
     std::string xconfURL = "Device.DeviceInfo.X_RDKCENTRAL-COM_RFC.Control.XconfUrl";
-    writeToTr181storeFile(xconfURL, "https://rdkautotool.ccp.xcal.tv/featureControl/getSettings", "/opt/secure/RFC/tr181store.ini", Quoted);
+    writeToTr181storeFile(xconfURL, "https://mockxconf/featureControl/getSettings", "/opt/secure/RFC/tr181store.ini", Quoted);
     WDMP_STATUS status = rfcObj->set_RFCProperty(name, xconfURL, value);
     EXPECT_EQ(status, WDMP_SUCCESS);
     delete rfcObj;
@@ -871,7 +871,7 @@ TEST(rfcMgrTest, set_RFCProperty) {
 
 TEST(rfcMgrTest, GetXconfSelect) {
     RuntimeFeatureControlProcessor *rfcObj = new RuntimeFeatureControlProcessor();
-    rfcObj->_RFCKeyAndValueMap[XCONF_URL_KEY_STR] = "https://xconf.xdp.eu-1.xcal.tv";
+    rfcObj->_RFCKeyAndValueMap[XCONF_URL_KEY_STR] = "https://mockxconfserver";
     rfcObj->_RFCKeyAndValueMap[XCONF_SELECTOR_KEY_STR] = "automation"; 
     rfcObj->GetXconfSelect();
     
@@ -915,7 +915,7 @@ TEST(rfcMgrTest, getRebootRequirement) {
 
 TEST(rfcMgrTest, ProcessXconfUrl) {
     RuntimeFeatureControlProcessor *rfcObj = new RuntimeFeatureControlProcessor();
-    std::string xconfURL = "https://xconf.xdp.eu-1.xcal.tv";
+    std::string xconfURL = "https://mockxconfserver";
     int result = rfcObj->ProcessXconfUrl(xconfURL.c_str());
     EXPECT_EQ(result , 0);
     delete rfcObj;
@@ -1291,7 +1291,7 @@ TEST(rfcMgrTest, Removed_PERSISTENCE_FILE) {
         RDK_LOG(RDK_LOG_ERROR, LOG_RFCMGR,"[%s][%d] Xconf Initialization ...!!\n", __FUNCTION__,__LINE__);
         delete rfcObj;
     } else {
-	rfcObj->_boot_strap_xconf_url = "https://xconf.xcal.tv";
+	rfcObj->_boot_strap_xconf_url = "https://mockxconf";
         result = rfcObj->ProcessRuntimeFeatureControlReq();
         delete rfcObj;
     }
@@ -1344,7 +1344,7 @@ TEST(rfcMgrTest, ValidPartnerId) {
 
 TEST(rfcMgrTest, GetXconfSelect_ci) {
     RuntimeFeatureControlProcessor *rfcObj = new RuntimeFeatureControlProcessor();
-    rfcObj->_RFCKeyAndValueMap[XCONF_URL_KEY_STR] = "https://xconf.xdp.eu-1.xcal.tv";
+    rfcObj->_RFCKeyAndValueMap[XCONF_URL_KEY_STR] = "https://mockxconfserver";
     rfcObj->_RFCKeyAndValueMap[XCONF_SELECTOR_KEY_STR] = "ci";
     rfcObj->GetXconfSelect();
 
@@ -1356,7 +1356,7 @@ TEST(rfcMgrTest, GetXconfSelect_ci) {
 
 TEST(rfcMgrTest, GetXconfSelect_Finish) {
     RuntimeFeatureControlProcessor *rfcObj = new RuntimeFeatureControlProcessor();
-    rfcObj->_RFCKeyAndValueMap[XCONF_URL_KEY_STR] = "https://xconf.xdp.eu-1.xcal.tv";
+    rfcObj->_RFCKeyAndValueMap[XCONF_URL_KEY_STR] = "https://mockxconfserver";
     rfcObj->_RFCKeyAndValueMap[XCONF_SELECTOR_KEY_STR] = "finish";
     rfcObj->GetXconfSelect();
 
