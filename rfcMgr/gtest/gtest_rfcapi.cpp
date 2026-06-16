@@ -61,12 +61,12 @@ TEST(rfcapiTest, writeCurlResponse) {
 }
 
 TEST(rfcapiTest, getRFCParameter) {
-    writeToTr181storeFile("Device.DeviceInfo.X_RDKCENTRAL-COM_RFC.LogUpload.LogServerUrl", "logs.xcal.tv", "/opt/secure/RFC/tr181store.ini", Plain);
+    writeToTr181storeFile("Device.DeviceInfo.X_RDKCENTRAL-COM_RFC.LogUpload.LogServerUrl", "mocklogs", "/opt/secure/RFC/tr181store.ini", Plain);
     const char* pcParameterName = "Device.DeviceInfo.X_RDKCENTRAL-COM_RFC.LogUpload.LogServerUrl";
     char *pcCallerID = "rfcdefaults";
     RFC_ParamData_t pstParamData;
     WDMP_STATUS result = getRFCParameter(pcCallerID, pcParameterName, &pstParamData);
-    EXPECT_STREQ(pstParamData.value, "logs.xcal.tv");
+    EXPECT_STREQ(pstParamData.value, "mocklogs");
     EXPECT_EQ(result, WDMP_SUCCESS);
 }
 
@@ -110,7 +110,7 @@ TEST(rfcapiTest, setRFCParameter_wildcard) {
 TEST(rfcapiTest, setRFCParameter) {
     const char* pcParameterName = "Device.DeviceInfo.X_RDKCENTRAL-COM_RFC.Bootstrap.SsrUrl";
     char *pcCallerID = "rfcdefaults";
-    const char* pcParameterValue = "https://ssr.ccp.xcal.tv";
+    const char* pcParameterValue = "https://mockssr";
     RFC_ParamData_t pstParamData;
     WDMP_STATUS result = setRFCParameter(pcCallerID, pcParameterName, pcParameterValue, WDMP_STRING);
     EXPECT_EQ(result, WDMP_SUCCESS);
